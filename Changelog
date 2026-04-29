@@ -1,0 +1,37 @@
+Changelog
+
+All notable changes and troubleshooting steps for this project are documented here.
+
+[v0.1] - Initial Setup
+Created initial Bash script structure
+Attempted to parse /var/log/auth.log
+Issue: File not found on Linux Mint
+
+[v0.2] - Logging Investigation
+Discovered system uses journalctl instead of traditional log files
+Verified logs using:
+-journalctl | wc -l
+-journalctl | grep -i pam
+Identified PAM logs as primary authentication source
+
+[v0.3] - Script Debugging
+Issue: Script returned empty output despite logs existing
+Root cause:
+-Pattern mismatch (Failed password not present)
+-Variable-based log storage caused failures
+Fix:
+-Switched to direct piping instead of variables
+-Broadened grep filters (failure, pam, etc.)
+
+[v0.4] - Functional Version
+Script successfully:
+-Counts authentication events
+-Identifies failure patterns
+-Outputs recent log activity
+Confirmed working on Linux Mint
+
+Future Improvements
+-Extract usernames from authentication logs
+-Add IP parsing (if available)
+-Implement real-time monitoring (journalctl -f)
+-Add alerting for repeated failures
