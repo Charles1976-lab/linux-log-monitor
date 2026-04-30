@@ -1,0 +1,21 @@
+Lessons Learned
+
+During the development of this project, several real-world challenges were encountered and resolved:
+
+Log Sources Vary by System
+-Initially attempted to read from /var/log/auth.log, but discovered that Linux Mint uses systemd-journald. This required adapting the approach to use journalctl.
+
+Log Formats Are Not Standardized
+-Expected patterns like "Failed password" were not present. Instead, authentication events were logged through PAM (pam_unix). Adjusted pattern matching to reflect actual system output.
+
+Handling Large Data in Scripts
+-Early versions attempted to store log data in variables, which led to incomplete or empty results. Switching to direct command piping improved reliability and performance.
+
+Permissions Matter
+-Accessing system logs required elevated privileges. Learned to account for permission constraints when designing scripts.
+
+Debugging Requires Isolation
+-Breaking the problem into steps (log source → filtering → output) made it easier to identify where failures were occurring.
+
+Outcome
+This project evolved from a simple script into a functional log analysis tool capable of identifying authentication activity and potential failure patterns on Linux systems. It also reinforced the importance of adapting to system-specific behaviors and validating assumptions during development.
